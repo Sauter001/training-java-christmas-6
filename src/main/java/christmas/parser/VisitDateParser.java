@@ -7,7 +7,8 @@ public class VisitDateParser implements Parser<VisitDate> {
     @Override
     public VisitDate parse(String date) {
         try {
-            int dateValue = Integer.parseInt(date);
+            String strippedDate = date.strip();
+            int dateValue = Integer.parseInt(strippedDate);
             return new VisitDate(dateValue);
         } catch (NumberFormatException e) {
             throw new InvalidVisitDateException();

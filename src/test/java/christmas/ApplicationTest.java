@@ -29,7 +29,7 @@ class ApplicationTest extends NsTest {
     void 혜택_내역_없음_출력() {
         assertSimpleTest(() -> {
             run("26", "타파스-1,제로콜라-1");
-            assertThat(output()).contains("<혜택 내역>" + LINE_SEPARATOR + "없음");
+            assertThat(output()).contains("<혜택k 내역>" + LINE_SEPARATOR + "없음");
         });
     }
 
@@ -45,6 +45,22 @@ class ApplicationTest extends NsTest {
     void 주문_예외_테스트() {
         assertSimpleTest(() -> {
             runException("3", "제로콜라-a");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 중복_주문_테스트() {
+        assertSimpleTest(() -> {
+            runException("3", "제로콜라-2,제로콜라-3");
+            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 없는_주문_테스트() {
+        assertSimpleTest(() -> {
+            runException("3", "제로콜라-2,닭고기-3");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         });
     }

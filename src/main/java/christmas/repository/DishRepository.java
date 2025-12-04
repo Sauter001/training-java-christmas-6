@@ -30,7 +30,7 @@ public class DishRepository {
     private void insertMainDish() {
         DishType mainDishType = DishType.MAIN;
         dishes.add(new Dish("티본스테이크", 55000, mainDishType));
-        dishes.add(new Dish("바베큐립", 54000, mainDishType));
+        dishes.add(new Dish("바비큐립", 54000, mainDishType));
         dishes.add(new Dish("해산물파스타", 35000, mainDishType));
         dishes.add(new Dish("크리스마스파스타", 25000, mainDishType));
     }

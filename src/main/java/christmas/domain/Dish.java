@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.domain.dto.DishNameDto;
+
 public class Dish {
     private final String name;
     private final int price;
@@ -13,5 +15,22 @@ public class Dish {
 
     public boolean typeEquals(DishType dishType) {
         return this.dishType == dishType;
+    }
+
+    public DishNameDto toDishNameDto() {
+        return new DishNameDto(this.name);
+    }
+
+    public boolean equalsNameOf(String dishName) {
+        return this.name.equals(dishName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Dish dish)) {
+            return false;
+        }
+
+        return this.name.equals(dish.name);
     }
 }
