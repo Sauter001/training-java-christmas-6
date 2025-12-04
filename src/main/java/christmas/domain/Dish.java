@@ -21,6 +21,10 @@ public class Dish {
         return new DishNameDto(this.name);
     }
 
+    public int calculateBoughtPrice(int quantity) {
+        return this.price * quantity;
+    }
+
     public boolean equalsNameOf(String dishName) {
         return this.name.equals(dishName);
     }

@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.DiscountStatistic;
 import christmas.domain.Menu;
 import christmas.domain.Order;
 import christmas.domain.UnvalidatedOrder;
@@ -23,6 +24,9 @@ public class DiscountController {
         VisitDate visitDate = inputView.readDate();
         UnvalidatedOrder unvalidatedOrder =  readUnvalidatedOrderWithRetry();
         Order order = unvalidatedOrder.makeOrderFrom(this.menu);
+        DiscountStatistic discountStatistic = new DiscountStatistic(visitDate, order);
+
+        outputView.displayDiscount(discountStatistic);
     }
 
     private UnvalidatedOrder readUnvalidatedOrderWithRetry() {

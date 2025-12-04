@@ -22,4 +22,15 @@ public class Order {
                         new OrderCountDto(entry.getKey().toDishNameDto(), entry.getValue())
                 ).toList();
     }
+
+    public int getFullPrice() {
+        int result = 0;
+
+        for (Dish dish : dishCounter.keySet()) {
+            int quantity = dishCounter.get(dish);
+            result += dish.calculateBoughtPrice(quantity);
+        }
+
+        return result;
+    }
 }
