@@ -30,7 +30,7 @@ class ApplicationTest extends NsTest {
     void 혜택_내역_없음_출력() {
         assertSimpleTest(() -> {
             run("26", "타파스-1,제로콜라-1");
-            assertThat(output()).contains("<혜택 내역>" + LINE_SEPARATOR + "없음");
+            assertThat(output()).contains("<혜택 내역>" + "\n" + "없음");
         });
     }
 
