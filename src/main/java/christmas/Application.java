@@ -2,7 +2,8 @@ package christmas;
 
 import christmas.config.AppConfig;
 import christmas.controller.DiscountController;
-import christmas.domain.Menu;
+import christmas.domain.order.Menu;
+import christmas.domain.discount.DiscountEvent;
 import christmas.domain.gift.GiftEvent;
 import christmas.repository.DishRepository;
 import christmas.view.InputView;
@@ -15,9 +16,10 @@ public class Application {
         InputView inputView = new InputViewImpl();
 
         Menu menu = appConfig.createMenu();
+        DiscountEvent discountEvent = appConfig.createDiscountEvent();
         GiftEvent giftEvent = appConfig.createGiftEvent();
 
-        DiscountController discountController = new DiscountController(inputView, menu, giftEvent);
+        DiscountController discountController = new DiscountController(inputView, menu, discountEvent, giftEvent);
         discountController.run();
     }
 }

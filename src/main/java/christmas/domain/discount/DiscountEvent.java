@@ -1,4 +1,4 @@
-package christmas.domain.gift;
+package christmas.domain.discount;
 
 import christmas.domain.event.EventContext;
 
@@ -6,14 +6,14 @@ import java.util.List;
 
 import static christmas.contant.DiscountConstant.MINIMUM_ORDER_AMOUNT;
 
-public class GiftEvent {
-    private final List<GiftPolicy> policies;
+public class DiscountEvent {
+    private final List<DiscountPolicy> policies;
 
-    public GiftEvent(List<GiftPolicy> policies) {
+    public DiscountEvent(List<DiscountPolicy> policies) {
         this.policies = policies;
     }
 
-    public List<Gift> determineGifts(EventContext context) {
+    public List<Discount> calculateDiscounts(EventContext context) {
         if (context.getTotalPrice() < MINIMUM_ORDER_AMOUNT) {
             return List.of();
         }
@@ -23,9 +23,9 @@ public class GiftEvent {
                 .toList();
     }
 
-    public int getTotalGiftPrice(EventContext context) {
-        return determineGifts(context).stream()
-                .mapToInt(Gift::price)
+    public int getTotalDiscount(EventContext context) {
+        return calculateDiscounts(context).stream()
+                .mapToInt(Discount::amount)
                 .sum();
     }
 }

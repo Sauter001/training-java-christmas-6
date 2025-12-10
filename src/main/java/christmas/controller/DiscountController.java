@@ -1,9 +1,10 @@
 package christmas.controller;
 
 import christmas.domain.DiscountStatistic;
-import christmas.domain.Menu;
-import christmas.domain.Order;
-import christmas.domain.UnvalidatedOrder;
+import christmas.domain.order.Menu;
+import christmas.domain.order.Order;
+import christmas.domain.order.UnvalidatedOrder;
+import christmas.domain.discount.DiscountEvent;
 import christmas.domain.gift.GiftEvent;
 import christmas.domain.vo.VisitDate;
 import christmas.exception.InvalidOrderException;
@@ -14,12 +15,14 @@ public class DiscountController {
     private final InputView inputView;
     private final OutputView outputView;
     private final Menu menu;
+    private final DiscountEvent discountEvent;
     private final GiftEvent giftEvent;
 
-    public DiscountController(InputView inputView, Menu menu, GiftEvent giftEvent) {
+    public DiscountController(InputView inputView, Menu menu, DiscountEvent discountEvent, GiftEvent giftEvent) {
         this.inputView = inputView;
         this.outputView = new OutputView();
         this.menu = menu;
+        this.discountEvent = discountEvent;
         this.giftEvent = giftEvent;
     }
 
@@ -27,7 +30,7 @@ public class DiscountController {
         VisitDate visitDate = inputView.readDate();
         UnvalidatedOrder unvalidatedOrder = readUnvalidatedOrderWithRetry();
         Order order = unvalidatedOrder.makeOrderFrom(this.menu);
-        DiscountStatistic discountStatistic = new DiscountStatistic(visitDate, order, giftEvent);
+        DiscountStatistic discountStatistic = new DiscountStatistic(visitDate, order, discountEvent, giftEvent);
 
         outputView.displayDiscount(discountStatistic);
     }

@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.order;
 
 import christmas.domain.dto.OrderCountDto;
 import christmas.exception.DiscountException;
@@ -46,5 +46,11 @@ public class Order {
         }
 
         return result;
+    }
+
+    public int countByType(DishType dishType) {
+        return this.dishCounter.entrySet().stream()
+                .filter(e -> e.getKey().typeEquals(dishType))
+                .mapToInt(Map.Entry::getValue).sum();
     }
 }

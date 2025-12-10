@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.order;
 
 import christmas.domain.dto.OrderCountDto;
 import christmas.exception.InvalidOrderException;

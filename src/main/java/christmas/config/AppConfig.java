@@ -1,8 +1,9 @@
 package christmas.config;
 
-import christmas.domain.Dish;
-import christmas.domain.DishType;
-import christmas.domain.Menu;
+import christmas.domain.order.Dish;
+import christmas.domain.order.DishType;
+import christmas.domain.order.Menu;
+import christmas.domain.discount.*;
 import christmas.domain.gift.GiftEvent;
 import christmas.domain.gift.GiftPolicy;
 import christmas.domain.gift.GiftProduct;
@@ -30,10 +31,20 @@ public final class AppConfig {
         return new Menu(dishes);
     }
 
+    public DiscountEvent createDiscountEvent() {
+        List<DiscountPolicy> policies = List.of(
+                new ChristmasDDayPolicy(),
+                new WeekdayDiscountPolicy(),
+                new WeekendDiscountPolicy(),
+                new SpecialDiscountPolicy()
+        );
+        return new DiscountEvent(policies);
+    }
+
     public GiftEvent createGiftEvent() {
         List<GiftProduct> giftProducts = this.dishRepository.findAllGiftProducts();
-        GiftPolicy policy = new PriceBasedPolicy();
-        return new GiftEvent(giftProducts, policy);
+        GiftPolicy policy = new PriceBasedPolicy(giftProducts);
+        return new GiftEvent(List.of(policy));
     }
 
     private void addDishes(Map<DishType, List<Dish>> dishes, DishType dishType) {

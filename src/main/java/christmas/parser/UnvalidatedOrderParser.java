@@ -1,12 +1,10 @@
 package christmas.parser;
 
-import christmas.domain.UnvalidatedOrder;
+import christmas.domain.order.UnvalidatedOrder;
 import christmas.exception.InvalidOrderException;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

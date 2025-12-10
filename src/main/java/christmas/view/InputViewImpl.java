@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.domain.UnvalidatedOrder;
+import christmas.domain.order.UnvalidatedOrder;
 import christmas.domain.vo.VisitDate;
 import christmas.exception.DiscountException;
 import christmas.parser.UnvalidatedOrderParser;

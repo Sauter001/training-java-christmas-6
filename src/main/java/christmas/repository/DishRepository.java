@@ -1,7 +1,7 @@
 package christmas.repository;
 
-import christmas.domain.Dish;
-import christmas.domain.DishType;
+import christmas.domain.order.Dish;
+import christmas.domain.order.DishType;
 import christmas.domain.gift.GiftProduct;
 
 import java.util.ArrayList;
