@@ -2,6 +2,8 @@ package christmas.domain;
 
 import christmas.domain.dto.DishNameDto;
 import christmas.domain.dto.OrderCountDto;
+import christmas.exception.DiscountException;
+import christmas.exception.ErrorMessage;
 import christmas.exception.InvalidOrderException;
 
 import java.util.HashMap;
@@ -10,7 +12,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UnvalidatedOrder {
-    public static final int MIN_ORDER_COUNT = 1;
+    private static final int MIN_ORDER_COUNT = 1;
+    private static final int MAX_ORDER_COUNT = 20;
     private final Map<String, Integer> dishCounter;
 
     public UnvalidatedOrder() {
@@ -25,9 +28,21 @@ public class UnvalidatedOrder {
 
     public void putOrder(String dishName, int quantity) {
         validateDishDisjoint(dishName);
+        validateTotalQuantity(quantity);
         validateOrderQuantity(quantity);
 
         dishCounter.put(dishName, quantity);
+    }
+
+    private void validateTotalQuantity(int quantity) {
+        int totalQuantity = this.dishCounter.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        totalQuantity += quantity;
+
+        if (totalQuantity >= MAX_ORDER_COUNT) {
+            throw new DiscountException(ErrorMessage.ORDER_COUNT_EXCEED);
+        }
     }
 
     public List<OrderCountDto> toOrderCountsDto() {

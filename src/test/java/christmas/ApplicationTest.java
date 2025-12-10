@@ -4,6 +4,7 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
+import christmas.exception.ErrorMessage;
 import org.junit.jupiter.api.Test;
 
 class ApplicationTest extends NsTest {
@@ -62,6 +63,14 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() -> {
             runException("3", "제로콜라-2,닭고기-3");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @Test
+    void 주문수량_초과() {
+        assertSimpleTest(() -> {
+            runException("3", "제로콜라-3,크리스마스파스타-7,바비큐립-10");
+            assertThat(output()).contains("[ERROR] " + ErrorMessage.ORDER_COUNT_EXCEED.getMessage());
         });
     }
 
