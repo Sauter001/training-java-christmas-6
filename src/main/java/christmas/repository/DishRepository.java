@@ -2,12 +2,16 @@ package christmas.repository;
 
 import christmas.domain.Dish;
 import christmas.domain.DishType;
+import christmas.domain.gift.GiftProduct;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DishRepository {
     private final List<Dish> dishes = new ArrayList<>();
+    private static final List<GiftProduct> giftProducts = List.of(
+            new GiftProduct("샴페인", 120000, 25000)
+    );
 
     public DishRepository() {
         insertAppetizer();
@@ -18,6 +22,10 @@ public class DishRepository {
 
     public List<Dish> findDishesOf(DishType type) {
         return dishes.stream().filter(d -> d.typeEquals(type)).toList();
+    }
+
+    public List<GiftProduct> findAllGiftProducts() {
+        return giftProducts;
     }
 
     private void insertAppetizer() {

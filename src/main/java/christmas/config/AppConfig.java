@@ -3,6 +3,10 @@ package christmas.config;
 import christmas.domain.Dish;
 import christmas.domain.DishType;
 import christmas.domain.Menu;
+import christmas.domain.gift.GiftEvent;
+import christmas.domain.gift.GiftPolicy;
+import christmas.domain.gift.GiftProduct;
+import christmas.domain.gift.PriceBasedPolicy;
 import christmas.repository.DishRepository;
 
 import java.util.HashMap;
@@ -24,6 +28,12 @@ public final class AppConfig {
         addDishes(dishes, DishType.DRINK);
 
         return new Menu(dishes);
+    }
+
+    public GiftEvent createGiftEvent() {
+        List<GiftProduct> giftProducts = this.dishRepository.findAllGiftProducts();
+        GiftPolicy policy = new PriceBasedPolicy();
+        return new GiftEvent(giftProducts, policy);
     }
 
     private void addDishes(Map<DishType, List<Dish>> dishes, DishType dishType) {
